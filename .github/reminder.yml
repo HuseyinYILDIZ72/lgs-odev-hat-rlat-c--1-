@@ -1,0 +1,26 @@
+name: LGS Ödev Hatırlatıcı
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Her saat başında çalışır (UTC)
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get install espeak
+        pip install datetime
+
+    - name: Run reminder script
+      run: python reminder.py
